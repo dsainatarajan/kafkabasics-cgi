@@ -1,0 +1,170 @@
+Day1:
+Trainer Introduction: D Sai Natarajan, 15 Yrs
+Instructions: All participants to be on mute, unmute for any discussion
+Questions: Please raise immediately
+Materials are shared through one drive link
+Labs: Provided from Day2 
+
+
+Module 1: Introduction to Message Broker 
+Direct communication
+Message Queue, Asynchronous communication
+Kafka Vs Rabbitmq
+• introduction to Message Broker 
+• Importance of Message Broker services  
+• Introduction to Kafka 
+• Kafka Architecture 
+• Kafka Cluster components 
+• Installation of Kafka 
+• Starting Kakfa using docker compose
+
+
+Rabbitmq
+Activemq
+Zmq
+Kafka
+
+Synchronous direct communication with tightly coupled architecture: challenges
+Source application has to take lot of responsibilities which is not its core functionality
+	Ensure every message is received by each target
+	Keep track of undelivered message per target
+	Monitor the target
+	Buffering, Persistence of undelivered message
+	Additional bandwidth is consumed per target
+	Any addition or removal of target application may require code change in the source application
+
+Message Queue: Is to remove all the above overheads of communication to another component
+
+Terminologies: Message Queue 
+Broker -> Message Queue Server runnin on a node(machine)
+Queue  -> Messages are grouped into named entities called queue(FIFO)
+Publisher -> Applications writing data into a queue
+Subscriber -> Applications reading data into a queue
+PubSub Model => Publisher Subscriber model
+
+Kafka: Kafka is a massively parallel distributed messsage queue spreading across hundereds of brokers, very low latency, written mostly in Java
+
+
+
+producer = kafka.producer(prop)
+producer.send(msg)					-> message could be produced to any partition#
+producer.send(msg, partition#)		-> message will be produced to a specific partition#
+
+producer.send(msg, partition=1)
+
+
+Kafka Terminologies
+Broker -> Message Queue Server runnin on a node(machine)
+				Normal Message queue		Kafka Terminology
+				Queue  						Topic
+Writing data	Publisher					Producers
+Reading data	Subscriber 					Consumers, Consumer Group
+				PubSub(push)				ProducerConsumer(poll)
+
+Consumer -> 
+
+Properties prop = Properties("auto_offset_reset", "latest")
+
+latest -> read messages created after the consumer started
+earliest -> read earliest available message in the topic
+
+consumer = KafkaConsumer(properties)
+Parttions, Replications 
+
+Break from 4 PM to 4.20 PM!
+
+
+while(True) {
+	Records rcs = cons.poll(interval=100ms);
+	for( rec: rcs) {
+		System.out.println(rec);
+	}
+}
+
+• Kafka Architecture -> Broker, Topics, Parttions, Replications, ConsumerGroup
+
+Zookeeper -> 2181
+Kafka	  -> 9092
+
+Zookeeper:
+	i) Distributed Storage for critical metadata
+	ii) Notification system
+	
+PLAINTEXT -> Zero Security
+SSL		-> Authentication, no Authorization
+SASL	-> Authorization, no Authentication
+SSL_SASL -> Authorization, Authentication
+
+listener=PLAINTEXT://192.168.1.100:9092,SSL_SASL://100.100.20.30:9093
+9092 -> No Security, broker-brokers(192.168.1.100 -> private)
+9093 -> Fully secure -> SASL + SSL(100.100.20.30 -> public -> secure)
+
+kafdrop		-> Web Interface
+
+Apache Kafka		-> Opensource project
+Confluent Kafka		-> Enterprise edition, Community Edition
+Cloudera Kafka		-> Enterprise edition
+
+Redpanda			-> Enterprise edition(faster), SAAS
+
+kafka-console-consumer.bat --topic demotopic1 --bootstrap-server localhost:9092 --from-beginning
+
+kafka-console-consumer.bat --topic demotopic1 --bootstrap-server localhost:9092 --from-beginning
+
+kafka-console-producer.bat --topic demotopic1 --bootstrap-server localhost:9092 
+
+
+mysql://localhost:3306
+kafka -> custom tcp protocol
+
+
+
+
+Push model: Rabbitmq	-> efficient for low volume and occassional messages
+Pull model: Kafka		-> always there are thousands of messages
+
+Twitter => 3 to 5 million tweets per second
+10s TB per second messages(tweet)
+
+Scale, Throughput(how frequently message are produced)
+
+Kafka originated -> Linked(2005 to 2009)
+2010 to 2011 -> Linked opensourced the kafka project => Apache Foundation
+Bigdata => Hortonworks, Cloudera, IBM, etc
+Right now -> Kafka 3.4.x
+
+Push model			-> Rabbitmq
+Pull(poll) model	-> Kafka
+
+Architecture
+Distributed nature of kafka, 
+Brokers, topics, partitions, offsets
+Write & Read flow
+
+
+Pruning(deleting old data)
+Offsets with partitions comparison
+Consumer Groups, Poll model
+
+Demo:
+Ubuntu node
+Install kafka Pre-requisite: java
+Download & extract kafka		=> Apache Kafka
+Consigure the Path variable, add bin folder of kafka to PATH
+
+Start zookeeper
+start kafka
+
+create a topic
+producer & consume messages from the topic
+
+kafka downloads links:
+https://archive.apache.org/dist/kafka/
+https://kafka.apache.org/downloads
+
+
+Kafka messages are immutable		-> Readonly
+
+
+
+

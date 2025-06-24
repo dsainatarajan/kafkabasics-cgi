@@ -1,0 +1,29 @@
+Windows Installation of Kafka:
+1. Install java 17 or higher
+2. Download & Extract kafka on C:\kafka
+3. create 3 folders inside the C:\kafka folder: zoodata, data1, data2
+4. Modify the  C:\kafka\config\zookeeper.properties
+Update the entry for Data directory as given below:
+dataDir=C:/kafka/zoodata
+5. Make 2 copies of config/server.properties as config/server1.properties & config/server2.properties
+6. Edit the config/server1.properties with following values
+broker.id=1
+listeners=PLAINTEXT://localhost:9092
+log.dirs=C:/kafka/data1
+7. Edit the config/server2.properties with following values
+broker.id=2
+listeners=PLAINTEXT://localhost:9093
+log.dirs=C:/kafka/data2
+8. Launch a command prompt & add the path to the kafka batch files to the path variable
+set PATH=%PATH%;C:\kafka\bin\windows
+cd C:/kafka/
+9. Start the zookeeper & 2 kafka brokers by running the below command on the command prompt launched in the previous step
+start zookeeper-server-start.bat ./config/zookeeper.properties
+start kafka-server-start.bat ./config/server1.properties
+start kafka-server-start.bat ./config/server2.properties
+10. You can test the kafka if it running by giving the jps command & QuorumPeerMain, Kafka, kafka will be listed
+jps
+# QuorumPeerMain
+# kafka
+# kafka
+
