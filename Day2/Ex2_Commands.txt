@@ -38,9 +38,14 @@ kafka-console-producer.sh --bootstrap-server localhost:9092 --topic demotopic1
 >second producer
 #  Consumer will read messages from the new producer
 
+# Create a new command prompt
+Start -> cmd
+docker exec -it  singlenodekafka-kafka-1  bash
+
 # Start a consumer
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demotopic1 --from-beginning
 
 # Produce more messages on the producer tab, consumer should list the messages recently produced
+
 # Produce messages from the second producer as well, both consumers will receive messages from both producers
 
