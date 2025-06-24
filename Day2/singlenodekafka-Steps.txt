@@ -1,0 +1,20 @@
+# Create a new directory in E drive
+E:\kafka
+
+# Launch a new command prompt
+Start -> cmd -> Enter
+
+cd E:\kafka
+E:
+git clone -b master https://github.com/dsainatarajan/kafkabasics-cgi.git
+cd kafkabasics-cgi\Day2\singlenodekafka
+docker-compose up -d
+docker-compose ps
+
+# Wait for 2 minutes
+docker-compose up -d
+docker-compose ps
+# Now both kafka and zookeeper nodes should be running
+docker ps
+# Now both kafka and zookeeper nodes should be running
+
