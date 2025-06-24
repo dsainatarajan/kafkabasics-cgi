@@ -7,6 +7,7 @@ Start -> cmd -> Enter
 cd E:\kafka
 E:
 git clone -b master https://github.com/dsainatarajan/kafkabasics-cgi.git
+git pull origin main
 cd kafkabasics-cgi\Day2\singlenodekafka
 docker-compose up -d
 docker-compose ps

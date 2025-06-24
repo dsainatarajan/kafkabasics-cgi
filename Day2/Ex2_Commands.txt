@@ -1,0 +1,46 @@
+# Launch a command prompt
+# Create a new command prompt
+Start -> cmd
+docker ps
+# both kafka & zookeeper should be lister
+# Get a bash terminal into the kafka broker container
+docker exec -it singlenodekafka-kafka-1  bash
+
+# create a topic in kafka called demotopic1
+kafka-topics.sh --create --bootstrap-server localhost:9092 --partitions 2 --replication-factor 1 --topic demotopic1
+# output: Created topic demotopic1.
+
+# List the topics in the broker(kafka cluster)
+kafka-topics.sh --list --bootstrap-server localhost:9092 
+
+# Start a producer
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic demotopic1
+>message1
+>Hello CGI
+>New message again
+>Another msg
+
+# Create a new command prompt
+Start -> cmd
+docker exec -it  singlenodekafka-kafka-1  bash
+
+# Start a consumer
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demotopic1 --from-beginning
+
+# Produce more messages on the producer tab, consumer should list the messages recently produced
+
+# Create a new command prompt
+Start -> cmd
+docker exec -it  singlenodekafka-kafka-1  bash
+# Start a producer
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic demotopic1
+>new terminal
+>second producer
+#  Consumer will read messages from the new producer
+
+# Start a consumer
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demotopic1 --from-beginning
+
+# Produce more messages on the producer tab, consumer should list the messages recently produced
+# Produce messages from the second producer as well, both consumers will receive messages from both producers
+
