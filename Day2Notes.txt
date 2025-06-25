@@ -1,0 +1,84 @@
+Day2:
+Module - 1: Introduction & Topic in Kafka Single Node Cluster 
+A quick recap on the Online module’s coverage.  
+• Creating, Deleting a new Topic in Kafka Single Node Cluster 
+• Demo of Producer & Consumer on Topic using Kafka Command Line 
+Producer & Consumer. Multi In (Producer) & Multi Out (Consumer) 
+models revisited. 
+
+Message Structure
+Message Routing
+Message Ordering
+Consumer Group basics
+
+
+
+cd E:\kafka
+E:
+git clone -b master https://github.com/dsainatarajan/kafkabasics-cgi.git
+git pull origin main
+cd kafkabasics-cgi\Day2\singlenodekafka
+docker-compose up -d
+docker-compose ps
+
+# Wait for 2 minutes
+docker-compose up -d
+docker-compose ps
+# Now both kafka and zookeeper nodes should be running
+docker ps
+# Now both kafka and zookeeper nodes should be running
+
+Break from 4.15 PM to 4.35 PM!
+
+
+Launched the kafka cluster(zookeeper + kafka)
+
+1. Create a topic
+2. Launch a producer, produce messages
+3. Launch a consumer, consume the messages
+
+
+
+
+Kafka originated -> Linked(2005 to 2009)
+2010 to 2011 -> Linked opensourced the kafka project => Apache Foundation
+Bigdata => Hortonworks, Cloudera, IBM, etc
+Right now -> Kafka 4.0.x
+Partitions, Replications, Messages, Routing, Message Order
+
+Partitions -> Partitions are for scalability
+		Partitions does not provide fault tolerance
+Replication -> Replication is for Fault Tolerance
+	Replication does not provide performance, neither producer nor consumer can read or write data to a follower replica
+
+Replication => Leader, follower
+
+	Producer & consumer can only write or read from the leader copy of the partition, replica cannot be connected to the clients(producer & consumer)
+
+High Availability => If the system remains operational even under failing nodes, then the system considered fault tolerant or Highly available
+
+Number of brokers that can fail without losing data ReplicationFactor-1
+#NumBrokersThatCanFail = ReplicationFactor-1
+
+ReplicationFactor=1 => 1 broker failure will result in data loss
+#NumBrokersThatCanFail = 1-1
+ReplicationFactor=2 => 2 brokers should fail simultaneously for data loss
+#NumBrokersThatCanFail = 2-1
+Message Structure: key, value pair
+
+Message: Is made of 2 components
+1. Key		-> can be any datatype, key is optional => Nullable
+2. Value	-> can be any datatype
+Messages are called as records -> Records have key & value
+Simillar to map or Hashmap
+Records => <key, Value>
+Message routing -> Messages with the same key will be produced to the same partition
+
+Messages with null key will be produced randomly to any partition
+
+
+
+I have no name@ret453654: 	=> pls ignore the "I Have no name"
+
+
+
