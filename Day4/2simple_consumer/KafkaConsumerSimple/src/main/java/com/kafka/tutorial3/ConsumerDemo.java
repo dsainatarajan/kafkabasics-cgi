@@ -18,7 +18,7 @@ public class ConsumerDemo {
 
         Logger logger = LoggerFactory.getLogger(ConsumerDemo.class.getName());
 
-        String bootstrapServers = "kafka1:9092,kafka2:9092,kafka3:9092";
+        String bootstrapServers = "localhost:9092";
         String groupId = "firstappgroup";
         String topic = "first_topic";
 
