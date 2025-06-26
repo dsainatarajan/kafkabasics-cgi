@@ -1,0 +1,103 @@
+Day3:
+Monitoring the Kafka Brokers 
+Broker on the Same Host and Monitoring the Kafka Brokers. Multi In 
+(Producer) & Multi Out (Consumer) model on a Multi-Broker Scenario, Resetting Offsets 
+• Java Producer, Java Consumer, Producer & Consumer with Keys 
+• Running custom Producer & Custom Consumer Jars on Kafka 
+• Kafka Multi-Node Setup Overview 
+Message Structure
+Message Routing
+Message Ordering
+Consumer Group basics
+
+
+Monitoring the Kafka Brokers :
+	ELK, Splunk, Prometheus & Grafana, Datadog, etc
+	Java -> jconsole
+
+Message Structure
+Message Routing
+Message Ordering
+
+Message Structure:
+Message: Is made of 2 components
+1. Key		-> can be any datatype, key is optional => Nullable
+2. Value	-> can be any datatype
+Messages are called as records -> Records have key & value
+Simillar to map or Hashmap
+Records => <key, Value>
+
+Message routing -> Messages with the same key will be produced to the same partition
+
+Messages with null key will be produced randomly to any partition
+
+I have no name@ret453654: 	=> pls ignore the "I Have no name"
+
+Message	-> Record => Will have 2 components -> (Key, value)
+Key is nullable(optional) -> records(messages) without key will be created with null values assigned to the key
+
+Record1 => <order1, '{"prd":"redmi6", "price":10000, "qty": 2}'>
+Key => order1
+Value => '{"prd":"redmi6", "price":10000, "qty": 2}'
+
+routing?
+targetPartition# = HASH(key)%NumPartitions
+
+targetPartition# = Murmur3('order1')%3
+                 = 345436 % 3
+				 = 0
+NumPartitions = 3
+
+# increasing the number of partitions will alter the target partition for the same key
+targetPartition# = HASH(key)%NumPartitions
+NumPartitions=5
+targetPartition# = Murmur3('order1')%3
+                 = 345436 % 5
+				 = 1
+
+
+Record2 => <order1, '{"prd":"apple", "price":100000, "qty": 1}'>
+Key => order1
+Value => '{"prd":"apple", "price":100000, "qty": 1}'
+
+targetPartition# = Murmur3('order1')%3
+                 = 345436 % 3
+				 = 0
+
+If the key of the record is null, to which partition will the record be routed?
+	Record will be routed randomly to any partition
+
+bootstrap-server,broker		=> kafka		-> 9092
+zookeeper					-> 2181
+
+Consumer Group basics:
+Kafka ensures every message is exactly delivered once per consumer group
+consumers in the same group will process unique data
+
+one of the brokers holding the partitions of the topic will take an additional role -> consumer group coordinator
+
+Consumer group rebalance:
+If a consumer in the group leaves(suddenly crashes), then the partition assigned to that failed consumer is no longer assigned to any valid consumer => kafka consumer group coordinator will rebalance the consumer group and it will assign the partition to one of the existing consumers in the consumer group
+
+Break from 4 PM to 4.20 PM!
+
+
+Strimzi -> broker autoscaling
+
+
+
+Case1:
+	1. I have 10 partitions in the topic, 5 consumers consuming from the topic as a consumer group. If the consumers are not able to read all the messages on time and lagging behind. How to solve the lag problem
+	Ans: Increase the number of consumers to 10 by adding 5 more consumers. This will increase the consumer side processing processing capacity
+	
+
+Case2:
+	1. I have 10 partitions in the topic, 10 consumers consuming from the topic as a consumer group. If the consumers are not able to read all the messages on time and lagging behind. How to solve the lag problem
+	Ans: Add more partitions to the topic by increasing the number of partitions to 20. Then we can add 10 more consumers so totally we will have 20 consumers, now the consumers will be able to read all the messages with the additional capacity
+
+java -jar consumer1.jar topic1 group=grp1
+java -jar consumer1.jar topic1 group=grp1
+
+java -jar consumer2.jar topic1 group=grp2
+java -jar consumer2.jar topic1 group=grp2
+

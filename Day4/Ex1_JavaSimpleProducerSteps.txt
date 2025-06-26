@@ -1,0 +1,40 @@
+# Launch a new command prompt
+docker exec -it singlenodekafka-kafka-1 bash
+# create the topic
+kafka-topics.sh --create --bootstrap-server localhost:9092 --partitions 2 --replication-factor 1 --topic first_topic
+# start a kafka console consumer on another tab
+# start the consumer with metadata print option
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic --property "print.key=true" --property "print.offset=true"  --property "print.partition=true" --from-beginning
+
+docker pull maven:3.9.8-eclipse-temurin-11-focal
+
+docker run --name mvn --network multinodekafka_default -it  maven:3.9.8-eclipse-temurin-11-focal bash
+apt update && apt install unzip git -y 
+
+git clone https://github.com/dsainatarajan/kafkacode.git
+
+cd /kafkacode
+ls
+unzip 1simple_producer.zip
+ls
+cd 1simple_producer/KafkaProducerDemo/
+mvn package
+ls -lh target/
+
+# notice the jar with the dependency
+# running the producer Jar
+cd target
+java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar 
+
+# You should see 2 messages consumed on the console consumer
+
+# running the producer Jar
+java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
+# run the producer few more times and observe the console consumer
+java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
+# Everytime the producer jar is executed, the consumer will receive 2 messages
+# notice the routing of message with & without key, observe the difference
