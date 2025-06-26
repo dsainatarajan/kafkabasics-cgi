@@ -24,7 +24,7 @@ java -jar simpleproducer.jar
 # You should see 2 messages consumed on the console consumer
 
 # running the producer Jar
-java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+java -jar simpleproducer.jar
 
 # run the producer few more times and observe the console consumer
 java -jar simpleproducer.jar

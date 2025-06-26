@@ -1,0 +1,25 @@
+# Launch another command prompt
+Start -> cmd
+cd E:\kafka\kafkabasics-cgi\
+e:
+cd Day4\2simple_consumer/KafkaConsumerSimple
+mvn package
+cd target
+dir
+# copy jar into the kafka broker docker container
+docker cp ConsumerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar  singlenodekafka-kafka-1:/simpleconsumer.jar
+docker exec -it singlenodekafka-kafka-1 bash
+ls 
+# Start the first consumer instance
+java -jar simpleconsumer.jar
+
+# Launch another command prompt
+Start -> cmd
+docker exec -it singlenodekafka-kafka-1 bash
+# Start the second consumer instance, 2 consumers will now consume as grou
+java -jar simpleconsumer.jar
+
+# On another terminal, run the producer few more times & observe the consumers
+java -jar simpleproducer.jar
+java -jar simpleproducer.jar
+java -jar simpleproducer.jar
