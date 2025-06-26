@@ -2,29 +2,22 @@
 docker exec -it singlenodekafka-kafka-1 bash
 # create the topic
 kafka-topics.sh --create --bootstrap-server localhost:9092 --partitions 2 --replication-factor 1 --topic first_topic
-# start a kafka console consumer on another tab
+
 # start the consumer with metadata print option
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic --property "print.key=true" --property "print.offset=true"  --property "print.partition=true" --from-beginning
 
-docker pull maven:3.9.8-eclipse-temurin-11-focal
-
-docker run --name mvn --network multinodekafka_default -it  maven:3.9.8-eclipse-temurin-11-focal bash
-apt update && apt install unzip git -y 
-
-git clone https://github.com/dsainatarajan/kafkacode.git
-
-cd /kafkacode
-ls
-unzip 1simple_producer.zip
-ls
-cd 1simple_producer/KafkaProducerDemo/
+# Launch another command prompt
+Start -> cmd
+cd E:\kafka\kafkabasics-cgi\Day4\1simple_producer\KafkaProducerDemo
+e:
 mvn package
-ls -lh target/
-
+cd target/
+dir
 # notice the jar with the dependency
+docker cp KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar  singlenodekafka-kafka-1:/simpleproducer.jar
 # running the producer Jar
-cd target
-java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar 
+docker exec -it singlenodekafka-kafka-1 bash
+java -jar simpleproducer.jar
 
 # You should see 2 messages consumed on the console consumer
 
@@ -32,9 +25,9 @@ java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
 # run the producer few more times and observe the console consumer
-java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-java -jar KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+java -jar simpleproducer.jar
+java -jar simpleproducer.jar
+java -jar simpleproducer.jar
 
 # Everytime the producer jar is executed, the consumer will receive 2 messages
 # notice the routing of message with & without key, observe the difference
