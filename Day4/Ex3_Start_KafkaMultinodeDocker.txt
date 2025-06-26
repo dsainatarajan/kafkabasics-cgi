@@ -5,9 +5,9 @@ cd E:\kafka
 e:
 cd kafkabasics-cgi\Day2\singlenodekafka
 docker-compose stop
-cd E:\kafka
+cd E:\kafka\kafkabasics-cgi
 git pull origin master
-cd kafkabasics-cgi\Day4\multinodekafka
+cd Day4\multinodekafka
 dir
 docker-compose up -d
 docker-compose ps
