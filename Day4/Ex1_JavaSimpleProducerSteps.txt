@@ -8,10 +8,12 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic 
 
 # Launch another command prompt
 Start -> cmd
-cd E:\kafka\kafkabasics-cgi\Day4\1simple_producer\KafkaProducerDemo
+cd E:\kafka\kafkabasics-cgi\
 e:
+git pull origin master
+cd Day4\1simple_producer\KafkaProducerDemo
 mvn package
-cd target/
+cd target
 dir
 # notice the jar with the dependency
 docker cp KafkaProducerDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar  singlenodekafka-kafka-1:/simpleproducer.jar
