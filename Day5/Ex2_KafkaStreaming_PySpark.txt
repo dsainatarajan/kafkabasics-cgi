@@ -1,0 +1,39 @@
+docker network ls
+
+docker pull apache/spark-py
+
+docker run --network multinodekafka_default --name pyspark1 -it apache/spark-py /opt/spark/bin/pyspark --packages org.apache.spark:spark-streaming-kafka-0-10_2.12:3.4.0,org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.0 --conf spark.driver.extraJavaOptions="-Divy.cache.dir=/tmp -Divy.home=/tmp" 
+
+df = spark \
+  .readStream \
+  .format("kafka") \
+  .option("kafka.bootstrap.servers", "kafka1:9092,kafka2:9092,kafka3:9092") \
+  .option("subscribe", "testtopic1") \
+  .load()
+
+df.selectExpr("CAST(value AS STRING)")
+from pyspark.sql.functions import col
+dfStream = df.select(col("value")) \
+    .writeStream \
+    .outputMode("update") \
+    .format("console") \
+    .start()
+
+dfStream.awaitTermination()
+
+
+
+
+# Launch a new terminal
+Start -> cmd
+
+docker exec -it multinodekafka-kafka1-1 bash
+
+# Start a producer
+kafka-console-producer.sh --bootstrap-server kafka1:9092 --topic testtopic1
+>message1
+>Hello CGI
+>New message again
+>Another msg
+
+
