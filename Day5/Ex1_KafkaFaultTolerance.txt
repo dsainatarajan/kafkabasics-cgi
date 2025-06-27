@@ -18,8 +18,7 @@ kafka-topics.sh --describe --bootstrap-server kafka1:9092,kafka2:9092 --topic te
 exit
 
 docker stop multinodekafka-kafka3-1
-cd $HOME/multinodekafka
-docker-compose ps
+docker ps
 # notice kafka3 container is in exited state
 
 docker exec -it multinodekafka-kafka1-1 bash
@@ -36,7 +35,7 @@ kafka-topics.sh --describe --bootstrap-server kafka1:9092,kafka2:9092 --topic te
 # exit to host and start the 3rd container again
 exit
 docker start multinodekafka-kafka3-1
-docker-compose ps
+docker ps
 # notice kafka3 container is in running state again
 
 docker exec -it multinodekafka-kafka1-1 bash
