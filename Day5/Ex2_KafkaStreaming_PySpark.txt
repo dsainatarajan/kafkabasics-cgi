@@ -13,7 +13,7 @@ df = spark \
 
 df.selectExpr("CAST(value AS STRING)")
 from pyspark.sql.functions import col
-dfStream = df.select(col("value")) \
+dfStream = df.select(col("value").cast("string")) \
     .writeStream \
     .outputMode("update") \
     .format("console") \
