@@ -1,0 +1,53 @@
+Day4:
+• Java Producer, Java Consumer, Producer & Consumer with Keys 
+• Running custom Producer & Custom Consumer Jars on Kafka 
+• Kafka Multi-Node Setup Overview
+• Monitoring Kafka Topics using the CLI commands. 
+• Broker Failure & Rebalancing the Leaders after Failure 
+• Scalability configurations of Kafka using Partitions & Kafka Brokers in a Multi-Broker Scenario
+
+• Java Producer, Java Consumer, Producer & Consumer with Keys 
+• Running custom Producer & Custom Consumer Jars on Kafka 
+	Pre-requisites: Java, Maven, Eclipse
+	
+	
+	
+https://docs.confluent.io/platform/current/installation/configuration/producer-configs.html
+
+
+
+ProducerRecord Constructors:
+
+ProducerRecord(String topic, K key, V value)
+Create a record to be sent to Kafka
+ProducerRecord(String topic, V value)
+Create a record with no key
+
+ProducerRecord(String topic, Integer partition, K key, V value)
+Creates a record to be sent to a specified topic and partition
+
+https://kafka.apache.org/23/javadoc/org/apache/kafka/clients/producer/ProducerRecord.html
+
+Producer:
+	idempotence, acks, batch.size, linger.ms
+	
+Consumer: Offset, offset commit
+	Delivery Semantic
+properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+	-> --from-beginning
+	
+1. Establish connection to the broker
+2. Subscribe to topic -> first_topic
+3. Poll for messages
+
+
+
+
+
+
+
+
+
+
+
+
